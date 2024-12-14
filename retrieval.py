@@ -10,22 +10,12 @@ file_path = 'crawl-data/demo_data.csv'
 index_file_path = 'faiss_index.bin'
 vectors_file_path = 'vectors.npy'
 
-
-# Load data in chunks to handle large CSV file
-chunk_size = 1000  # Adjust the chunk size as needed
-chunks = pd.read_csv(file_path, header=None, names=["raw_data"], skiprows=2, encoding='utf-8', chunksize=chunk_size)
-
-# Process each chunk and concatenate the results
-df_list = []
-for chunk in chunks:
-    chunk['raw_data'] = chunk['raw_data'].astype(str)
-    chunk = chunk['raw_data'].str.split(',', n=2, expand=True)
-    chunk.columns = ['so_hieu', 'dieu', 'truncated_text']
-    df_list.append(chunk)
-
-df = pd.concat(df_list, ignore_index=True)
-    
-
+# Read file csv using csv module
+with open(file_path, 'r', encoding='utf-8') as file:
+    reader = csv.reader(file)
+    next(reader)  # Skip the header row
+    data = [row[0].split(',', 2) for row in reader]
+    df = pd.DataFrame(data, columns=['so_hieu', 'dieu', 'truncated_text'])
 
 # Use the correct column name
 column_name = 'truncated_text'
