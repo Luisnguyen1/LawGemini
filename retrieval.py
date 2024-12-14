@@ -30,10 +30,13 @@ if os.path.exists(index_file_path) and os.path.exists(vectors_file_path):
     vectors = np.load(vectors_file_path)
 else:
     # Vectorize the text data with progress display
+    batch_size = 32  # Adjust the batch size as needed
     vectors = []
-    for text in tqdm(df[column_name].tolist(), desc="Embedding vectors"):
-        vector = model.encode([text], convert_to_tensor=True).cpu().numpy()
-        vectors.append(vector)
+    for start_idx in tqdm(range(0, len(df[column_name]), batch_size), desc="Embedding vectors"):
+        end_idx = min(start_idx + batch_size, len(df[column_name]))
+        batch_texts = df[column_name][start_idx:end_idx].tolist()
+        batch_vectors = model.encode(batch_texts, convert_to_tensor=True).cpu().numpy()
+        vectors.append(batch_vectors)
     vectors = np.vstack(vectors)
 
     # Create FAISS index
