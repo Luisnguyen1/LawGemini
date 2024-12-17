@@ -6,7 +6,7 @@ import numpy as np
 from tqdm import tqdm
 import csv
 
-file_path = 'crawl-data/demo_data.csv'
+file_path = 'crawl-data/data.csv'
 index_file_path = 'faiss_index.bin'
 vectors_file_path = 'vectors.npy'
 

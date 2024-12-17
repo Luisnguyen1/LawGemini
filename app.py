@@ -1,13 +1,10 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 from retrieval import retrieve_documents
 from generation import generate_response
 import os
-from pyngrok import ngrok
-
-# Set your ngrok authentication token
-ngrok.set_auth_token("2q69bqUTOpmclLDzfLIijJC6k4b_3CKLcWti7j55Xahu4Xw6h")
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)  # Set a secret key for session management
 
 @app.route('/')
 def index():
@@ -23,11 +20,19 @@ def retrieve():
 def generate():
     context = request.json.get('context')
     retrieved_data = request.json.get('retrieved_data', [])
-    response = generate_response(context, retrieved_data)
+
+    # Get the conversation history from the session
+    conversation_history = session.get('conversation_history', [])
+    conversation_history.append(context)
+    session['conversation_history'] = conversation_history
+
+    response = generate_response(context, retrieved_data, conversation_history)
     return jsonify(response)
 
+@app.route('/reset', methods=['POST'])
+def reset():
+    session.pop('conversation_history', None)
+    return jsonify({"message": "Conversation history reset."})
+
 if __name__ == '__main__':
-    port = 5000
-    public_url = ngrok.connect(port)
-    print(f" * ngrok tunnel \"{public_url}\" -> \"http://127.0.0.1:{port}\"")
-    app.run(debug=True, port=port)
+    app.run(debug=True)
