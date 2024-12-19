@@ -9,9 +9,14 @@ from huggingface_hub import hf_hub_download
 
 repo_id = "manhteky123/LawVietnamese"
 
-file_path = hf_hub_download(repo_id=repo_id, filename="data.csv")
-index_file_path = hf_hub_download(repo_id=repo_id, filename="faiss_index.bin")
-vectors_file_path = hf_hub_download(repo_id=repo_id, filename="vectors.npy")
+file_path = "crawl-data/data.csv"
+index_file_path = "faiss_index.bin"
+vectors_file_path = "vectors.npy"
+
+
+# file_path = hf_hub_download(repo_id=repo_id, filename="data.csv")
+# index_file_path = hf_hub_download(repo_id=repo_id, filename="faiss_index.bin")
+# vectors_file_path = hf_hub_download(repo_id=repo_id, filename="vectors.npy")
 
 # Read file csv using csv module
 with open(file_path, 'r', encoding='utf-8') as file:
