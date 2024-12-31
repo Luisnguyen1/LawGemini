@@ -28,8 +28,8 @@ VN Law Chat là một ứng dụng AI được xây dựng để giúp người 
 
 ```
 VN Law Chat/
-├── frontend/         # Giao diện người dùng (React)
-├── backend/          # API và xử lý logic (FastAPI)
+├── frontend/         # Giao diện người dùng 
+├── backend/          # API và xử lý logic 
 ├── models/          # Các mô hình AI và xử lý ngôn ngữ
 ├── data/            # Cơ sở dữ liệu văn bản pháp luật
 └── docker/          # Cấu hình Docker
