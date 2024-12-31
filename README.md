@@ -77,17 +77,6 @@ Chúng tôi rất hoan nghênh mọi đóng góp để cải thiện VN Law Chat
 4. Push lên branch (`git push origin feature/AmazingFeature`)
 5. Tạo Pull Request
 
-## 📝 Giấy phép
-
-Dự án này được cấp phép theo giấy phép MIT - xem file [LICENSE](LICENSE) để biết thêm chi tiết.
-
-## 📞 Liên hệ
-
-- Email: [địa chỉ email]
-- Website: [website]
-- GitHub: [link GitHub]
-
----
 
 ## 👨‍💻 Tác giả
 
